@@ -7,7 +7,7 @@ input_state = [4.51649476e-03, 9.78424926e-03, 9.48564045e-03, 9.76213616e-01]
 input_costate = [0, 0, 0, 0]
 [beta, sigma, gamma] = [0.5, 0.1, 0.2]
 cost = 0.05
-time_end = 20
+time_end = 60
 
 simulation = Simulation(input_state, input_costate, beta, sigma, gamma, cost)
 

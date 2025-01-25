@@ -15,14 +15,13 @@ class Simulation:
     def update_costate(self, new_costate):
         self.psus, self.pexp, self.pinf, self.prec = new_costate
     def return_backwards_state(self):
+        # Checked: the roots are correct.
         coef = [
             (self.beta/(1-self.gamma))*self.sus*self.inf + (self.beta/(1-self.gamma))*self.exp*self.inf - self.exp,
             1-self.sigma-(self.beta/(1-self.gamma))*self.sigma*self.sus - (self.beta/(1-self.gamma))*self.sigma * self.exp - (self.beta/(1-self.gamma))*(1-self.sigma)*self.inf,
             (self.beta/(1-self.gamma))*self.sigma*(1-self.sigma)
         ]
-        p = Polynomial(coef = coef, domain = [0, 1])
-        np.polynomial.set_default_printstyle('unicode')
-        print("polynomial is {}".format(p))
+        p = Polynomial(coef = coef)
         ans = Polynomial.roots(p)
         print("roots are {}".format(ans))
         new_exp = max(ans)
