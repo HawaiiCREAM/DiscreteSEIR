@@ -7,7 +7,7 @@ input_state = [0.99,0.01,0,0]
 input_costate = [0, 0, 0, 0]
 [beta, sigma, gamma] = [0.5, 0.1, 0.2]
 simulation = ForwardSimulation(input_state, input_costate, beta, sigma, gamma)
-time_end = 60
+time_end = 40
 forward_simulation_data = np.empty((time_end, 4))
 forward_simulation_data[0,:] = input_state
 for i in range(1,time_end):
