@@ -52,33 +52,5 @@ total_cost = sum(backwards_simulation_data[:time_end, 2]) + sum(backwards_simula
 # print(backwards_simulation_data[:time_end, 2])
 
 x_axis = range(0,time_end)[::-1]
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize = (16, 6))
-ax1.plot(x_axis, backwards_simulation_data[:time_end,0], '.', label ='S')
-ax1.plot(x_axis, backwards_simulation_data[:time_end,1], '.', label ='E')
-ax1.plot(x_axis, backwards_simulation_data[:time_end,2], '.', label ='I')
-ax1.plot(x_axis, backwards_simulation_data[:time_end,3], '.', label ='R')
-ax1.set(xlabel = "Time Step", ylabel = "Ratio of Population")
-ax1.set_ylim([0, 1])
-ax1.set_title("SEIR Model")
-ax1.legend(loc = 'upper left')
-# ax1.xaxis.set_inverted(True)
 
-ax2.plot(x_axis, backwards_simulation_control_data[:time_end], '.', label = 'u')
-ax2.set(xlabel = "Time Step", ylabel = "Control Value with Max {:.8f}".format(control_max))
-ax2.set_ylim([-0.01, 0.06])
-ax2.set_title("Control with Total Cost {:.8f} and Cost Constant {:.8f}".format(total_cost, cost))
-ax2.legend(loc = 'upper right')
-
-plt.figure()
-plt.plot(x_axis, backwards_simulation_switching_data[:time_end], '.', label = 'SwitchingFunc')
-plt.xlabel("Time Step")
-plt.ylabel("Switching Function Value")
-plt.title("Switching Function with Cost Constant {:.8f}".format(total_cost, cost))
-plt.legend(loc = 'upper right')
-
-# print(np.real(backwards_simulation_data[time_end-1,:]))
-# print(np.real(backwards_simulation_pdata[time_end-1,:]))
-print(backwards_simulation_switching_data[:time_end])
-print(x_axis[:time_end][::-1])
-# ax2.xaxis.set_inverted(True)
 plt.show()
