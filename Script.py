@@ -6,8 +6,8 @@ from numpy.polynomial import Polynomial
 input_state = [1.07000172e-01, 8.93135541e-03, 6.40945233e-03, 8.77659020e-01]
 input_costate = [0, 0, 0, 0]
 [beta, sigma, gamma] = [0.5, 0.1, 0.2]
-cost = 0.5
-control_max = 0.00005
+cost = 1
+control_max = 0.05
 max_time = 100
 
 simulation = Simulation(input_state, input_costate, beta, sigma, gamma, cost, control_max)
