@@ -13,8 +13,8 @@ class ForwardSimulation:
     def update_costate(self, new_costate):
         self.psus, self.pexp, self.pinf, self.prec = new_costate
     def return_forward_state(self):
-        sus_new = self.sus - self.beta*self.sus*self.exp*(1-self.control) - self.control*self.sus
-        exp_new = self.exp + self.beta*self.sus*self.exp*(1-self.control) - self.sigma*self.exp
+        sus_new = self.sus - self.beta*self.sus*self.inf*(1-self.control) - self.control*self.sus
+        exp_new = self.exp + self.beta*self.sus*self.inf*(1-self.control) - self.sigma*self.exp
         inf_new = self.inf + self.sigma*self.exp - self.gamma*self.inf
         rec_new = self.rec + self.gamma*self.inf + self.control*self.sus
         return [sus_new, exp_new, inf_new, rec_new]
@@ -22,5 +22,7 @@ class ForwardSimulation:
         return [self.sus,self.exp,self.inf,self.rec]
     def return_costate(self):
         return [self.psus,self.pexp,self.pinf,self.prec]
+    def update_control(self, control):
+        self.control = control
     def print(self):
         print("State: {}\n Costate: {}".format(self.return_state,self.return_costate))

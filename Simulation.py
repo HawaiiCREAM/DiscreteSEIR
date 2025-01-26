@@ -4,13 +4,14 @@ from numpy.polynomial import Polynomial
 from scipy.optimize import fsolve
 import math
 class Simulation:
-    def __init__(self, state, costate, beta, sigma, gamma, cost):
+    def __init__(self, state, costate, beta, sigma, gamma, cost, control_max):
         self.sus, self.exp, self.inf, self.rec = state
         self.psus, self.pexp, self.pinf, self.prec = costate
         self.beta = beta
         self.sigma = sigma
         self.gamma = gamma
         self.cost = cost
+        self.control_max = control_max
         self.control = 0
     def update_state(self, new_state):
         self.sus, self.exp, self.inf, self.rec = new_state
@@ -25,7 +26,7 @@ class Simulation:
         ]
         p = Polynomial(coef = coef)
         ans = Polynomial.roots(p)
-        print("roots are {}".format(ans))
+        # print("roots are {}".format(ans))
         new_exp = max(ans)
         new_inf = (self.inf-self.sigma*new_exp)/(1-self.gamma)
         new_sus = (self.sus + self.exp - (1-self.sigma)*new_exp)/(1-self.control)
@@ -54,7 +55,7 @@ class Simulation:
         temp = [
             self.psus - self.psus*(self.beta*(1 - self.control)*self.inf + self.control) + self.pexp*self.beta*(1-self.control)*self.inf,
             self.pexp - self.pexp*self.sigma + self.pinf*self.sigma,
-            1 + self.pinf - self.psus*self.beta*(1-self.control)*self.sus + self.pexp*self.beta*(1-self.control)*self.sus - self.pinf*self.gamma,
+            -1 + self.pinf - self.psus*self.beta*(1-self.control)*self.sus + self.pexp*self.beta*(1-self.control)*self.sus - self.pinf*self.gamma,
             self.prec
         ]
         return temp
@@ -66,12 +67,14 @@ class Simulation:
         print("State: {}\n Costate: {}".format(self.return_state,self.return_costate))
     def return_switching(self):
         #psus is k+1, sus is k. so update_backwards_state, then do switching, then do update_backwards_costate
-        return (-self.cost + self.psus *(self.beta * self.sus * self.inf - self.sus) - self.pexp * self.beta * self.sus * self.inf + self.prec * self.sus )
+        switching = -self.cost + self.psus *(self.beta * self.sus * self.inf - self.sus) - self.pexp * self.beta * self.sus * self.inf + self.prec * self.sus
+        # print(switching)
+        return switching
     def update_control(self):
-        if self.switching() < 0:
+        if self.return_switching() < 0:
             self.control = 0
-        elif self.switching() > 0:
-            self.control = 1
+        elif self.return_switching() > 0:
+            self.control = self.control_max
         else:
             self.control = 0
             print('singular!!')
