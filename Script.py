@@ -6,7 +6,7 @@ from numpy.polynomial import Polynomial
 input_state = [1.07000172e-01, 8.93135541e-03, 6.40945233e-03, 8.77659020e-01]
 input_costate = [0, 0, 0, 0]
 [beta, sigma, gamma] = [0.5, 0.1, 0.2]
-cost = 1
+cost = 3.0081
 control_max = 0.05
 max_time = 100
 
@@ -46,7 +46,12 @@ def first_bad(list):
         if number < 0 or number > 1:
             return count
 
-time_end = min(first_bad(backwards_simulation_data[:,1]), first_bad(backwards_simulation_data[:,2]))-1
+time_end = min(
+    first_bad(backwards_simulation_data[:,0]),
+    first_bad(backwards_simulation_data[:,1]),
+    first_bad(backwards_simulation_data[:,2]),
+    first_bad(backwards_simulation_data[:,3])
+    ) - 1
 
 total_cost = sum(backwards_simulation_data[:time_end, 2]) + sum(backwards_simulation_control_data[:time_end]*cost)
 # print(backwards_simulation_data[:time_end, 2])
@@ -76,9 +81,14 @@ plt.ylabel("Switching Function Value")
 plt.title("Switching Function with Cost Constant {:.8f}".format(total_cost, cost))
 plt.legend(loc = 'upper right')
 
-# print(np.real(backwards_simulation_data[time_end-1,:]))
+print("Initial = ", np.real(backwards_simulation_data[time_end-1,:]))
+print("Final = ", ([1.07000172e-01, 8.93135541e-03, 6.40945233e-03, 8.77659020e-01]))
+print("b = {}".format(cost))
+print("N = {}".format(time_end - 1))
+print("Total cost = {}".format(total_cost))
 # print(np.real(backwards_simulation_pdata[time_end-1,:]))
-print(backwards_simulation_switching_data[:time_end])
-print(x_axis[:time_end][::-1])
+# print(backwards_simulation_switching_data[:time_end])
+# print(x_axis[:time_end][::-1])
 # ax2.xaxis.set_inverted(True)
+print(backwards_simulation_switching_data[:time_end])
 plt.show()

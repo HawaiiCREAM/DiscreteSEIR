@@ -9,7 +9,7 @@ input_costate = [-3.50931667, -7.6803654,  -9.91794065,  0.        ]
 cost = 1
 control_max = 0.05
 simulation = ForwardSimulation(input_state, input_costate, beta, sigma, gamma)
-time_end = 100
+time_end = 64
 simulation.update_control(0)
 forward_simulation_data = np.zeros((time_end, 4))
 forward_simulation_control_data = np.zeros(time_end)
@@ -41,7 +41,10 @@ ax2.set_ylim([-0.01, 0.06])
 ax2.set_title("Control with Total Cost {:.8f} and Cost Constant {:.8f}".format(total_cost, cost))
 ax2.legend(loc = 'upper right')
 
-print(np.real(forward_simulation_data[time_end-1,:]))
-print(time_end)
+print("Initial = ", [0.75066266, 0.05051487, 0.13155287, 0.0672696])
+print("Final = ", np.real(forward_simulation_data[time_end-1,:]))
+print("b = {}".format(cost))
+print("N = {}".format(time_end - 1))
+print("Total cost = {}".format(total_cost))
 # ax2.xaxis.set_inverted(True)
 plt.show()

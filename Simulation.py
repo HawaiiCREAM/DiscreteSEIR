@@ -66,7 +66,6 @@ class Simulation:
     def return_switching(self):
         #psus is k+1, sus is k. so update_backwards_state, then do switching, then do update_backwards_costate
         switching = -self.cost + self.psus *(self.beta * self.sus * self.inf - self.sus) - self.pexp * self.beta * self.sus * self.inf + self.prec * self.sus
-        # print(switching)
         return switching
     def update_control(self):
         if self.return_switching() < 0:
