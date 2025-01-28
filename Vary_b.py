@@ -78,11 +78,12 @@ def RunBackwardsSimulation(input_state, input_costate, beta, sigma, gamma, cost,
     plt.plot(x_axis, backwards_simulation_switching_data[:time_end], '.', label = 'SwitchingFunc')
     plt.xlabel("Time Step")
     plt.ylabel("Switching Function Value")
-    plt.title("Switching Function with Cost Constant {:.8f}".format(total_cost, cost))
+    plt.title("Switching Function with Cost Constant {:.8f}".format(cost))
     plt.legend(loc = 'upper right')
 
     fig.savefig('{}_cost_1.png'.format(cost))
     plt.savefig('{}_cost_2.png'.format(cost))
+    plt.close()
     return [
         np.real(backwards_simulation_data[time_end-1,:]), # initial
         np.real(backwards_simulation_data[0,:]), # final
