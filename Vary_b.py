@@ -10,7 +10,7 @@ input_costate = [0, 0, 0, 0]
 [beta, sigma, gamma] = [0.5, 0.1, 0.2]
 cost = 1
 control_max = 0.05
-max_time = 100 # not passed to sim
+max_time = 56 # not passed to sim
 
 def RunBackwardsSimulation(input_state, input_costate, beta, sigma, gamma, cost, control_max, max_time):
     simulation = Simulation(input_state, input_costate, beta, sigma, gamma, cost, control_max)
@@ -20,7 +20,7 @@ def RunBackwardsSimulation(input_state, input_costate, beta, sigma, gamma, cost,
             count += 1      #moved it outside of the if
             if number < 0 or number > 1:
                 return count
-        return 100000
+        return max_time
 
     backwards_simulation_data = np.zeros((max_time, 4))
     backwards_simulation_pdata = np.zeros((max_time, 4))
