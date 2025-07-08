@@ -47,18 +47,18 @@ for i in range(len(m)):
     p = [1, -pa[0]/pa[1]]
     u[i] = -np.dot(p, lf0 @ [1,m[i]])/(np.dot(p, lf1 @ [1,m[i]]))
 
-fig, ax = plt.subplots(figsize=(4, 4.3))
-x = np.linspace(-2, 2, 100) # constructs a numpy array of [0.0, 1.0, ... 10.0]
-ax.set_xlim(-1.43, 0.24)
-ax.set_ylim(-0.65, 0.67)
-ax.set_xticks(np.linspace(-1.4,0.2,9))
-ax.set_yticks(np.linspace(-0.6,0.6,7))
-plt.plot(x, m[0]*x, linestyle='solid', label = 'D1')
-plt.plot(x, m[1]*x, linestyle='solid', label = 'D2')
-txt = "u = " + str(round(u[0],4)) + " and " + str(round(u[1],4))
-plt.figtext(0.5, 0.02, txt, wrap=True, horizontalalignment='center', fontsize=11)
-ax.legend()
-plt.show()
+# fig, ax = plt.subplots(figsize=(4, 4.3))
+# x = np.linspace(-2, 2, 100) # constructs a numpy array of [0.0, 1.0, ... 10.0]
+# ax.set_xlim(-1.43, 0.24)
+# ax.set_ylim(-0.65, 0.67)
+# ax.set_xticks(np.linspace(-1.4,0.2,9))
+# ax.set_yticks(np.linspace(-0.6,0.6,7))
+# plt.plot(x, m[0]*x, linestyle='solid', label = 'D1')
+# plt.plot(x, m[1]*x, linestyle='solid', label = 'D2')
+# txt = "u = " + str(round(u[0],4)) + " and " + str(round(u[1],4))
+# plt.figtext(0.5, 0.02, txt, wrap=True, horizontalalignment='center', fontsize=11)
+# ax.legend()
+# plt.show()
 
 
 # print(str(eigs1) + "\n" + str(eigs2))
